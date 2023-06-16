@@ -24,7 +24,7 @@ pipeline {
 		}
 		stage('build') {
   			steps {
-    			sh "mvn clean copmpile"
+    			sh "mvn clean install"
  			}
 		}
 		stage('test'){
