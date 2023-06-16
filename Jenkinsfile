@@ -37,9 +37,9 @@ pipeline {
 				sh "mvn failsafe:integration-test failsafe:verify"	
 			}
 		}
-		stage('Build a Package') {
+		stage('Build a Package'){
   			steps {
-    			sh "mvn package -DskipTest "
+    			sh "mvn package -DskipTest"
  			}
 		}
 		stage('Build Docker Image') {
@@ -54,8 +54,8 @@ pipeline {
   			steps {
     			script {
 					docker.withRegistry('','Dockerhub'){
-					buildImage.push();
-					buildImage.push('latest');
+					dockerImage.push();
+					dockerImage.push('latest');
 					}
 				}
   			}
