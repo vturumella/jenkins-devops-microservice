@@ -44,7 +44,7 @@ pipeline {
 		}
 		stage('Build Docker Image') {
   			steps {
-    			build -t vthurimella/currency-exchange-devops:$env.BUILD_TAG
+    			docker build -t vthurimella/currency-exchange-devops:$env.BUILD_TAG
 				script {
 					dockerImage=docker.build("vthurimella/currency-exchange-devops:${env.BUILD_TAG}")
 				}
