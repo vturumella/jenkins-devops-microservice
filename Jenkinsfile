@@ -37,6 +37,29 @@ pipeline {
 				sh "mvn failsafe:integration-test failsafe:verify"	
 			}
 		}
+		stage('Build a Package') {
+  			steps {
+    			sh "mvn package -DskipTest "
+ 			}
+		}
+		stage('Build Docker Image') {
+  			steps {
+    			build -t vthurimella/currency-exchange-devops:$env.BUILD_TAG
+				script {
+					dockerImage=docker.build("vthurimella/currency-exchange-devops:${env.BUILD_TAG}")
+				}
+  			}
+		}
+		stage('Push Docker Image') {
+  			steps {
+    			script {
+					docker.withRegistry('','Dockerhub'){
+					buildImage,push{};
+					buildImage.push('latest');
+					}
+				}
+  			}
+		}
 	}
 	post{
 		always{
